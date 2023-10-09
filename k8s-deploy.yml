@@ -37,8 +37,8 @@ spec:
       #                      - k8sworker2
       terminationGracePeriodSeconds: 1800
       restartPolicy: Always
-      #imagePullSecrets:
-      #  - name: secret-buildpacks
+      imagePullSecrets:
+        - name: secret-buildpacks
       containers:
         - name: api-bi-prod
           image: registry.parlacom.net:8081/leadingquest/leadingquest-musketeers:prod-v1.0
@@ -122,7 +122,7 @@ spec:
 #
 # Horizontal Pod Autoscaler
 #
-apiVersion: autoscaling/v2beta1
+apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: api-bi-prod
@@ -138,11 +138,15 @@ spec:
     - type: Resource
       resource:
         name: cpu
-        targetAverageUtilization: 95
+        target:
+          type: Utilization
+          averageUtilization: 95
     - type: Resource
       resource:
         name: memory
-        targetAverageUtilization: 95
+        target:
+          type: Utilization
+          averageUtilization: 95
 
 ---
 
