@@ -25,6 +25,7 @@ spec:
         prometheus.io/path: "/actuator/prometheus"
         prometheus.io/port: "8080"
     spec:
+      serviceAccountName: tekton-service-account
       #      affinity:
       #        nodeAffinity:
       #          requiredDuringSchedulingIgnoredDuringExecution:
